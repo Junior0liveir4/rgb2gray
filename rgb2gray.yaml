@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rgb2gray
+data:
+  ZIPKIN_HOST: "10.244.6.3"
+  ZIPKIN_PORT: "9411"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rgb2gray
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rgb2gray
+  template:
+    metadata:
+      labels:
+        app: rgb2gray
+    spec:
+      containers:
+      - name: rgb2gray
+        image: juniorgui/rgb2gray:v21
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "256Mi"
+          limits:
+            cpu: "1000m"
+            memory: "256Mi"
+        envFrom:
+        - configMapRef:
+            name: rgb2gray
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rgb2gray
+spec:
+  selector:
+    app: rgb2gray
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
