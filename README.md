@@ -1,4 +1,3 @@
-
 # 🖤 RGB2Gray
 
 A aplicação **RGB2Gray** é responsável por **converter imagens em escala de cinza** recebidas de múltiplos gateways de câmera e **publicar novamente os frames processados** via RabbitMQ. Além disso, fornece **observabilidade** por meio de integração com o Zipkin, permitindo análise de desempenho da aplicação em tempo real, como **tempo de processamento** e **taxa de frames por segundo (FPS)**.
@@ -112,7 +111,7 @@ O arquivo `yaml` define:
 ```yaml
 env:
   - name: ZIPKIN_URL
-    value: http://10.10.0.68:30200
+    value: http://zipkin:30200
 ```
 
 ---
